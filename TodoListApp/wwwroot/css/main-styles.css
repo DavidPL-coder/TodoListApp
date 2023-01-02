@@ -1,0 +1,32 @@
+body {
+    background-color: #303437;
+    color: #39a5f1;
+    font-family: sans-serif;
+}
+
+#container {
+    margin: 0;
+    height: 100vh;
+}
+
+header {
+    width: 100%;
+}
+
+h1 {
+    padding: 10px;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+
+@media screen and (max-height: 400px) {
+    #container {
+        height: auto;
+        gap: 20px;
+    }
+}
