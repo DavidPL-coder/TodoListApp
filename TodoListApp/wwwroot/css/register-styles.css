@@ -1,0 +1,18 @@
+﻿#register-window {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 0px black;
+    padding: 30px;
+}
+
+.validation-control {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+    display: none;
+    margin-top: 2px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}

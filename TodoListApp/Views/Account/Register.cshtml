@@ -1,0 +1,57 @@
+﻿@model RegisterUserDTO
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+
+@section CssStyles 
+{
+    <link rel="stylesheet" href="~/css/register-styles.css" asp-append-version="true" />
+}
+
+@section Scripts 
+{
+    <script>const viewBag_UserJustExists = Boolean("@ViewBag.UserJustExists");</script>
+    <script src="~/js/RegisterFormValidator.js" asp-append-version="true"></script>
+}
+
+<main id="register-window" class="col-10 offset-1 col-md-6 offset-md-3 d-flex flex-column">
+    <form asp-controller="Account" asp-action="Register" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="form-label lead">Nazwa użytkownika</label>
+            <input asp-for="Name" id="name-input" class="form-control" type="text" placeholder="Nazwa użytkownika" minlength="4" required/>
+            <span id="name-validation-control" class="validation-control">Nazwa nie może być krótsza niż 4 znaki oraz nie może zawierać białych znaków.</span>
+        </div> 
+        <div class="form-group">
+            <label asp-for="Email" class="form-label lead">Email (potrzebny do wysyłania powiadomień)</label>
+            <input asp-for="Email" id="email-input" class="form-control" type="email" placeholder="Email" required/>
+            <span id="email-validation-control" class="validation-control">Podany email ma nie poprawną składnie.</span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="form-label lead">Hasło</label>
+            <input asp-for="Password" id="password-input" class="form-control" type="password" placeholder="Hasło" minlength="6" required/>
+            <span id="password-validation-control" class="validation-control">Hasło nie może się zaczynać małą literą ani być krótsze niż 6 znaków oraz nie może zawierać białych znaków.</span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword" class="form-label lead">Hasło ponownie</label>
+            <input asp-for="ConfirmPassword" id="confirm-password-input" class="form-control" type="password" placeholder="Hasło ponownie" minlength="6" required/>
+            <span id="confirm-password-validation-control" class="validation-control">Podane hasło jest inne niż wcześniej podane.</span>
+        </div>
+        <button id="register-submit-btn" class="btn btn-primary" type="submit">Zarejestruj</button>
+    </form>
+</main>
+
+@if (ViewBag.UserJustExists == true)
+{
+    <div id="error-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-content" role="document">
+            <div class="modal-header">
+                <h4 class="modal-title">Błąd podczas rejestracji</h4>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body fs-5">
+                Użytkownik z tym loginem już istnieje (użyj innego do rejestracji).
+            </div>
+        </div>
+    </div>
+}
+
