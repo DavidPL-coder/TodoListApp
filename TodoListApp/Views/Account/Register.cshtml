@@ -1,4 +1,5 @@
 ﻿@model RegisterUserDTO
+@inject AppConfig AppConfig
 @{
     ViewData["Title"] = "Rejestracja";
 }
@@ -18,22 +19,22 @@
     <form asp-controller="Account" asp-action="Register" method="post">
         <div class="form-group">
             <label asp-for="Name" class="form-label lead">Nazwa użytkownika</label>
-            <input asp-for="Name" id="name-input" class="form-control" type="text" placeholder="Nazwa użytkownika" minlength="4" required/>
-            <span id="name-validation-control" class="validation-control">Nazwa nie może być krótsza niż 4 znaki oraz nie może zawierać białych znaków.</span>
+            <input asp-for="Name" id="name-input" class="form-control" type="text" placeholder="Nazwa użytkownika" minlength="@AppConfig.MinUsernameLength" required />
+            <span id="name-validation-control" class="validation-control">Nazwa nie może być krótsza niż @AppConfig.MinUsernameLength znaki oraz nie może zawierać białych znaków.</span>
         </div> 
         <div class="form-group">
             <label asp-for="Email" class="form-label lead">Email (potrzebny do wysyłania powiadomień)</label>
-            <input asp-for="Email" id="email-input" class="form-control" type="email" placeholder="Email" required/>
+            <input asp-for="Email" id="email-input" class="form-control" type="email" placeholder="Email" required />
             <span id="email-validation-control" class="validation-control">Podany email ma nie poprawną składnie.</span>
         </div>
         <div class="form-group">
             <label asp-for="Password" class="form-label lead">Hasło</label>
-            <input asp-for="Password" id="password-input" class="form-control" type="password" placeholder="Hasło" minlength="6" required/>
-            <span id="password-validation-control" class="validation-control">Hasło nie może się zaczynać małą literą ani być krótsze niż 6 znaków oraz nie może zawierać białych znaków.</span>
+            <input asp-for="Password" id="password-input" class="form-control" type="password" placeholder="Hasło" minlength="@AppConfig.MinPasswordLength" required />
+            <span id="password-validation-control" class="validation-control">Hasło nie może się zaczynać małą literą ani być krótsze niż @AppConfig.MinPasswordLength znaków oraz nie może zawierać białych znaków.</span>
         </div>
         <div class="form-group">
             <label asp-for="ConfirmPassword" class="form-label lead">Hasło ponownie</label>
-            <input asp-for="ConfirmPassword" id="confirm-password-input" class="form-control" type="password" placeholder="Hasło ponownie" minlength="6" required/>
+            <input asp-for="ConfirmPassword" id="confirm-password-input" class="form-control" type="password" placeholder="Hasło ponownie" minlength="@AppConfig.MinPasswordLength" required />
             <span id="confirm-password-validation-control" class="validation-control">Podane hasło jest inne niż wcześniej podane.</span>
         </div>
         <button id="register-submit-btn" class="btn btn-primary" type="submit">Zarejestruj</button>

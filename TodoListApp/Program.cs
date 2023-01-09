@@ -1,19 +1,21 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using TodoListApp;
 using TodoListApp.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var appConfig = new AppConfig();
+builder.Configuration.GetSection("AppConfig").Bind(appConfig);
+builder.Services.AddSingleton(appConfig);
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(optionsBuilder => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ToDosAppDatabase;Trusted_Connection=true;"));
+builder.Services.AddDbContext<AppDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(appConfig.ConnectionString));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.Scan(scan => scan.FromCallingAssembly().AddClasses(publicOnly: false)
     .AsImplementedInterfaces()
     .WithScopedLifetime());
 
-// TODO: Take constants from config file
-builder.WebHost.UseUrls("https://*:443");
+builder.WebHost.UseUrls(appConfig.UrlsUsedForRunning);
 
 var app = builder.Build();
 
